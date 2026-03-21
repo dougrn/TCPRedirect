@@ -1,0 +1,10 @@
+{
+  "mappings": [
+    {
+      "comment": "Exemplo de redirecionamento da porta 8091 para a 8090 no localhost",
+      "listen_port": 8091,
+      "target_host": "127.0.0.1",
+      "target_port": 8090
+    }
+  ]
+}
