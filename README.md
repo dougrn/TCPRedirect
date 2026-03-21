@@ -1,60 +1,60 @@
 # 🚀 TCPRedirect
 
-**TCPRedirect** is a powerful and lightweight TCP proxy written in Python using `asyncio`. It allows you to redirect traffic from one or more local ports to any other specified host and port.
+**TCPRedirect** é um proxy TCP poderoso e leve escrito em Python utilizando `asyncio`. Ele permite redirecionar o tráfego de uma ou mais portas locais para qualquer outro host e porta especificados.
 
-This tool is specifically designed to bypass local-only service restrictions by proxying external connections through a local instance, making them appear as `localhost` to the target service.
-
----
-
-## 🌟 Features
-
--   **Multi-Port Support**: Redirect multiple ports simultaneously using a single instance.
--   **Async Performance**: Built on top of Python's `asyncio` for high concurrency and low overhead.
--   **Simple Configuration**: Easy-to-manage `config.json` for all your mapping needs.
--   **Professional Logging**: Clean, timestamped logs to monitor your data flow in real-time.
--   **Graceful Shutdown**: Properly handles termination signals to ensure all connections are closed safely.
+Esta ferramenta foi projetada especificamente para contornar restrições de acesso baseadas em IP (como bloqueios de `localhost`), fazendo o proxy de conexões externas através de uma instância local para que pareçam vir do próprio `localhost`.
 
 ---
 
-## 📂 Project Structure
+## 🌟 Características
+
+-   **Suporte Multi-Porta**: Redirecione múltiplas portas simultaneamente em uma única instância.
+-   **Performance Async**: Construído sobre o `asyncio` do Python para alta concorrência e baixo consumo de recursos.
+-   **Configuração Simples**: Gerenciamento fácil via `config.json` para todos os seus mapeamentos.
+-   **Logs Profissionais**: Logs limpos com data/hora para monitorar o fluxo de dados em tempo real.
+-   **Encerramento Seguro**: Lida corretamente com sinais de interrupção para garantir que todas as conexões sejam fechadas com segurança.
+
+---
+
+## 📂 Estrutura do Projeto
 
 ```text
 TCPRedirect/
-├── config.json         # Port mappings configuration
-├── redirector.py       # Core proxy logic
-├── .gitignore          # Git ignore rules
-└── README.md           # Documentation
+├── config.json         # Configuração dos mapeamentos de porta
+├── redirector.py       # Lógica central do proxy
+├── .gitignore          # Regras de arquivos ignorados pelo Git
+└── README.md           # Documentação
 ```
 
 ---
 
-## 🛠️ Installation
+## 🛠️ Instalação
 
-1.  **Clone the repository:**
+1.  **Clone o repositório:**
     ```bash
     git clone https://github.com/dougrn/TCPRedirect.git
     cd TCPRedirect
     ```
 
-2.  **Ensure you have Python 3.7+ installed.**
+2.  **Certifique-se de ter o Python 3.7+ instalado.**
 
-3.  **No external dependencies required!** (Uses Python Standard Library).
+3.  **Sem dependências externas!** (Utiliza a biblioteca padrão do Python).
 
 ---
 
-## 🚀 Usage
+## 🚀 Como Usar
 
-### 1. Configure Mappings
-Edit `config.json` to define your port redirects. Each mapping consists of:
--   `listen_port`: The port TCPRedirect will listen on.
--   `target_host`: The destination host (e.g., `127.0.0.1`).
--   `target_port`: The destination port.
+### 1. Configurar Mapeamentos
+Edite o arquivo `config.json` para definir seus redirecionamentos. Cada mapeamento consiste em:
+-   `listen_port`: A porta que o TCPRedirect irá ouvir.
+-   `target_host`: O host de destino (ex: `127.0.0.1`).
+-   `target_port`: A porta de destino.
 
 ```json
 {
   "mappings": [
     {
-      "comment": "Redirect external 8091 to local 8090",
+      "comment": "Redireciona a porta externa 8091 para a local 8090",
       "listen_port": 8091,
       "target_host": "127.0.0.1",
       "target_port": 8090
@@ -63,25 +63,25 @@ Edit `config.json` to define your port redirects. Each mapping consists of:
 }
 ```
 
-### 2. Run the Redirector
+### 2. Executar o Redirecionador
 ```bash
 python redirector.py
 ```
 
 ---
 
-## 💡 How it works
+## 💡 Como Funciona
 
-When TCPRedirect receives a connection on a `listen_port`, it establishes a new connection to the `target_host:target_port`. It then creates a bidirectional bridge, forwarding all data between the original client and the target service.
+Quando o TCPRedirect recebe uma conexão em uma `listen_port`, ele estabelece uma nova conexão com o `target_host:target_port`. Em seguida, cria uma ponte bidirecional, encaminhando todos os dados entre o cliente original e o serviço de destino.
 
-Since TCPRedirect typically runs on the same machine as the target service, the service sees the connection coming from `127.0.0.1`, effectively bypassing IP-based access restrictions.
-
----
-
-## 📜 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+Como o TCPRedirect geralmente roda na mesma máquina que o serviço de destino, este vê a conexão vindo de `127.0.0.1`, ignorando efetivamente as restrições de acesso baseadas em IP.
 
 ---
 
-Developed with ❤️ by [dougrn](https://github.com/dougrn)
+## 📜 Licença
+
+Este projeto está licenciado sob a Licença MIT - veja o arquivo LICENSE para detalhes.
+
+---
+
+Desenvolvido com ❤️ por [dougrn](https://github.com/dougrn)
