@@ -11,6 +11,14 @@ logging.basicConfig(
 )
 logger = logging.getLogger("TCPRedirector")
 
+def handle_exception(loop, context):
+    """Tratador de exceções para ignorar erros de conexão resetada no Windows."""
+    exception = context.get('exception')
+    if isinstance(exception, ConnectionResetError):
+        # Silencia o erro WinError 10054 que ocorre no ProactorEventLoop do Windows
+        return
+    loop.default_exception_handler(context)
+
 async def forward_data(reader, writer):
     """Encaminha dados de um stream para outro."""
     try:
@@ -66,6 +74,10 @@ async def start_redirector(listen_port, target_host, target_port):
         await server.serve_forever()
 
 async def main():
+    # Define o tratador de exceções para o loop atual
+    loop = asyncio.get_running_loop()
+    loop.set_exception_handler(handle_exception)
+
     try:
         with open('config.json', 'r') as f:
             config = json.load(f)
